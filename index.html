@@ -16,19 +16,24 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <button class="btn btn-outline-success my-2 my-sm-0 navbutton" v-on:click="onPlay">Play</button>
+                <button class="btn btn-success my-2 my-sm-0 navbutton" v-on:click="onPlay" :disabled="!paused">Play</button>
               </li>
               <li class="nav-item">
-                <button class="btn btn-outline-danger my-2 my-sm-0 navbutton" v-on:click="onStop">Stop</button>
+                <button class="btn btn-danger my-2 my-sm-0 navbutton" v-on:click="onStop" :disabled="paused">Stop</button>
               </li>
             </ul>
           </div>
         </nav>
-        <div  class="container">
+        <div  class="container-fluid">
           <table class="table" >
+            <tr>
+              <th>Sound</th>
+              <th colspan="sequenceLengyth"></th>
+              <th>Mute</th>
+            </tr>
             <tr v-for="seq,name in sequence">
                 <th>{{ name }}</th>
-                <td class="list-inline-item seqitem" v-for="i,j in seq" v-bind:class="{ active: j == pos }">
+                <td class="list-inline-item seqitem inactive" v-for="i,j in seq" v-bind:class="{ active: j == pos }">
                   <input class="form-check-input" type="checkbox" v-model="seq[j]"> 
                 </td>
                 <th class="mute">

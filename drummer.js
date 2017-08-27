@@ -17,11 +17,13 @@ var app = new Vue({
     sequence: {
     },
     pos: 0,
+    paused: false,
     sounds: {},
     interval: null
   },
   methods: {
     start: function() {
+      this.paused = false;
       if (this.interval === null) {
         this.interval = setInterval(() => {
           for (var j in this.sequence) {
@@ -37,6 +39,7 @@ var app = new Vue({
       if (this.interval !== null) {
         clearInterval(this.interval);
         this.interval = null;
+        this.paused = true;
       }
     },
     onPlay : function() {

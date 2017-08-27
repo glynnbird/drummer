@@ -1,3 +1,7 @@
+.inactive {
+  border-left: 1px solid white;
+}
+
 .active {
   border-left: 1px dotted #888
 }
