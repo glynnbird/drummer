@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Drummer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">  
+    <link rel="stylesheet" href="drummer.css">
+    
+  </head>
+  <body>
+    <div id="app">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#">Drummer</a>
+        
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <button class="btn btn-outline-success my-2 my-sm-0 navbutton" v-on:click="onPlay">Play</button>
+              </li>
+              <li class="nav-item">
+                <button class="btn btn-outline-danger my-2 my-sm-0 navbutton" v-on:click="onStop">Stop</button>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <div  class="container">
+          <table class="table" >
+            <tr v-for="seq,name in sequence">
+                <th>{{ name }}</th>
+                <td class="list-inline-item seqitem" v-for="i,j in seq" v-bind:class="{ active: j == pos }">
+                  <input class="form-check-input" type="checkbox" v-model="seq[j]"> 
+                </td>
+                <th class="mute">
+                  <input class="form-check-input" type="checkbox" v-model="sounds[name].mute">
+                </th> 
+            </tr>
+          </table>
+
+        </div>
+    </div>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.4/howler.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="drummer.js"></script>
+  </body>
+</html>
