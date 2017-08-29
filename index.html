@@ -21,6 +21,18 @@
               <li class="nav-item">
                 <button class="btn btn-danger my-2 my-sm-0 navbutton" v-on:click="onStop" :disabled="paused">Stop</button>
               </li>
+              <li class="nav-item">
+                  &nbsp;&nbsp;&nbsp;
+              </li>
+              <li class="nav-item">
+                  <button class="btn btn-outline-secondary my-2 my-sm-0 navbutton" v-on:click="onClear">Clear</button>
+              </li>
+              <li class="nav-item">
+                   <input id="bpmcontrol" class="form-control" type="number" min="20" max="200" v-model="bpm" >
+              </li>
+              <li class="nav-item">
+                  <button class="btn btn-outline-secondary my-2 my-sm-0 navbutton" v-on:click="onBpm">BPM</button>
+              </li>
             </ul>
           </div>
         </nav>

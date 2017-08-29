@@ -19,11 +19,13 @@ var app = new Vue({
     pos: 0,
     paused: false,
     sounds: {},
-    interval: null
+    interval: null,
+    bpm: 120
   },
   methods: {
     start: function() {
       this.paused = false;
+      var t = 60000 / (this.bpm * 4);
       if (this.interval === null) {
         this.interval = setInterval(() => {
           for (var j in this.sequence) {
@@ -32,7 +34,7 @@ var app = new Vue({
             }
           }
           this.pos = (this.pos +1) % this.sequenceLength;
-        }, 125);
+        }, t);
       }
     },
     stop: function() {
@@ -43,12 +45,19 @@ var app = new Vue({
       }
     },
     onPlay : function() {
-      console.log('onPlay');
       this.start();
     },
     onStop: function() {
-      console.log('onStop');
       this.stop();
+    },
+    onClear: function() {
+      for (var j in this.sequence) {
+        this.sequence[j] = emptyArray();
+      }
+    },
+    onBpm: function() {
+      this.stop();
+      this.start();
     }
   },
   created: function() {
