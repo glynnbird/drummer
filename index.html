@@ -10,7 +10,9 @@
   </head>
   <body>
     <div id="app">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      
+      <!-- nav -->
+      <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
           <a class="navbar-brand" href="#">Drummer</a>
         
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -33,9 +35,57 @@
               <li class="nav-item">
                   <button class="btn btn-outline-secondary my-2 my-sm-0 navbutton" v-on:click="onBpm">BPM</button>
               </li>
+              <li class="nav-item">
+                  &nbsp;&nbsp;&nbsp;
+              </li>
+              <li class="nav-item">
+                  <input id="seqcontrol" class="form-control" type="number" min="3" max="32" v-model="sequenceLength" >
+             </li>
+              <li class="nav-item">
+                  <button class="btn btn-outline-secondary my-2 my-sm-0 navbutton" v-on:click="onSeqLen">Notes</button>
+              </li>
+              <li class="nav-item">
+                  &nbsp;&nbsp;&nbsp;
+              </li>
+              <li class="nav-item">
+                  <button class="btn btn-outline-warning my-2 my-sm-0 navbutton" v-on:click="onLoad">Load</button>
+              </li>
+              <li class="nav-item">
+                  <input id="name" class="form-control" type="string" v-model="name" >
+             </li>
+              <li class="nav-item">
+                  <button class="btn btn-outline-success my-2 my-sm-0 navbutton" v-on:click="onSave" :disabled="name.length==0">Save</button>
+              </li>
             </ul>
           </div>
         </nav>
+
+        <!-- startup alert -->
+        <div class="alert alert-secondary show" role="alert">
+          <h2>Welcome to Drummer</h2>
+          <div class="container">
+            <div class="row">
+                <div class="col">
+                  <img src="img/cr78.png" class="image-responsive" />
+                </div>
+                <div class="col">
+                  <h3>Welcome to Drummer</h3>
+                  <p>
+                    Drummer is a drum machine app. It uses samples of the classic CR78 but is 
+                    programmed by simply clicking events onto a repeating timeline.
+                  </p>
+                  <p>
+                    It is built with the Howler JavaScript audio library and brought to life with
+                    Vue.js and Bootstap 4. It uses PouchDB to store your loops in a local database
+                    in your web browser, but you can also sync this collection to a remote CouchDB
+                    or Cloudant database for safe-keeping.
+                  </p>
+                </div>
+              </div>
+          </div>
+        </div>
+
+        <!-- sequence editor -->
         <div  class="container-fluid">
           <table class="table" >
             <tr>
@@ -55,14 +105,41 @@
           </table>
 
         </div>
+
+        <!-- load modal -->
+        <div id="loadModal" class="modal">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Load</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Select file to load</p>
+                <select v-model="name">
+                  <option value="">-----</option>
+                  <option v-for="f in files">{{ f }}</option>
+                </select>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" v-on:click="onModalLoad">Load</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div> <!-- end load modal -->
+
     </div>
-
-
-
 
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.4/howler.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/pouchdb/pouchdb@6.3.4/dist/pouchdb.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/pouchdb/pouchdb@6.3.4/dist/pouchdb.find.min.js"></script>
     <script src="drummer.js"></script>
   </body>
 </html>

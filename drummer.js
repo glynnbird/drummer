@@ -9,6 +9,9 @@ var emptyArray = function() {
   return arr;
 };
 
+// setup the database
+var db = new PouchDB('drummer');
+
 
 var app = new Vue({
   el: '#app',
@@ -20,7 +23,9 @@ var app = new Vue({
     paused: false,
     sounds: {},
     interval: null,
-    bpm: 120
+    bpm: 120,
+    name: '',
+    files: [ 'a','b','c']
   },
   methods: {
     start: function() {
@@ -44,6 +49,16 @@ var app = new Vue({
         this.paused = true;
       }
     },
+    getFileList: function() {
+      this.files = [];
+      db.find({ selector: {}, fields: ['_id']}).then((data) => {
+        if (data && data.docs) {
+          for(var i in data.docs) {
+            this.files.push(data.docs[i]._id);
+          }
+        }
+      });
+    },
     onPlay : function() {
       this.start();
     },
@@ -58,6 +73,44 @@ var app = new Vue({
     onBpm: function() {
       this.stop();
       this.start();
+    },
+    onSeqLen: function() {
+      this.stop();
+      this.start();
+    },
+    onLoad: function() {
+      $('#loadModal').modal('show')
+    },
+    onSave: function() {
+      var obj = {
+        _id: this.name,
+        sequenceLength: this.sequenceLength,
+        sequence: this.sequence,
+        bpm: this.bpm,
+        name: this.name
+      };
+      db.get(obj._id).then((data) => {
+        obj._rev = data._rev;
+        return db.put(obj);
+      }).catch(() => {
+        return db.put(obj);
+      }).then(() => {
+        this.getFileList();
+      });
+    },
+    onModalLoad: function() {
+      db.get(this.name).then((data) => {
+        this.name = data.name;
+        this.sequenceLength = data.sequenceLength,
+        this.sequence = data.sequence,
+        this.bpm = data.bpm;
+        this.stop();
+        this.start();
+        $('#loadModal').modal('hide')
+      });
+    },
+    onGetStarted : function() {
+      $('#startupModal').modal('hide')
     }
   },
   created: function() {
@@ -87,7 +140,9 @@ var app = new Vue({
     for (var x=0; x < this.sequenceLength; x+=4) {
       this.sequence.kicka[x] = 1;
     }
+    this.getFileList();
     this.start();
+    $('#startupModal').modal('show')
   }
 })
 
