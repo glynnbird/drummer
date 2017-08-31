@@ -141,11 +141,16 @@
 
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.4/howler.min.js"></script>
-    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vue@2.4.2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/pouchdb/pouchdb@6.3.4/dist/pouchdb.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/pouchdb/pouchdb@6.3.4/dist/pouchdb.find.min.js"></script>
     <script src="drummer.js"></script>
+    <script>
+      if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').then(function() { console.log("Service Worker Registered"); });
+      }
+    </script>
   </body>
 </html>
