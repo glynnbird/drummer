@@ -19,12 +19,13 @@ var app = new Vue({
     sequence: {
     },
     pos: 0,
-    paused: false,
+    paused: true,
     sounds: {},
     interval: null,
     bpm: 120,
     name: '',
-    files: [ ]
+    files: [ ],
+    mode: 'splash'
   },
   methods: {
     // start the sequence playback
@@ -86,10 +87,8 @@ var app = new Vue({
 
     // on click of the clear button
     onClear: function() {
-      for (var j in this.sequence) {
-        for(var i in this.sequence[j]) {
-          this.sequence[j][i] = false;
-        }
+      for (var i in this.sounds) {
+        Vue.set(this.sequence, i, emptyArray());
       }
     },
 
@@ -146,9 +145,17 @@ var app = new Vue({
 
     // on click of the 'get started' button
     onGetStarted : function() {
-      $('#startupModal').modal('hide');
       $('#welcome').hide();
+      $('#sequence').show();
       this.start();
+      this.mode='play';
+    },
+
+    onClickHome: function() {
+      this.stop();
+      $('#welcome').show();
+      $('#sequence').hide();  
+      this.mode='splash'
     }
   },
 
@@ -176,7 +183,7 @@ var app = new Vue({
 
     // clear the sequence
     for (var i in this.sounds) {
-      this.sequence[i] = emptyArray();
+      Vue.set(this.sequence, i, emptyArray());
     }
 
     // simple back beat

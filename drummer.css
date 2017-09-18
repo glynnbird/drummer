@@ -13,3 +13,15 @@
 #bpmcontrol {
   width:100px
 }
+
+.hidden {
+  display: none
+}
+
+[v-cloak] {
+  display: none;
+}
+
+.mute {
+  border-top: medium none !important;
+}

@@ -9,13 +9,13 @@
     <link rel="stylesheet" href="drummer.css">
   </head>
   <body>
-    <div id="app">
+    <div id="app" v-cloak>
       
       <!-- nav -->
       <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-          <a class="navbar-brand" href="#">Drummer</a>
+          <a class="navbar-brand" href="#" v-on:click="onClickHome">Drummer</a>
         
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div v-if="mode=='play'" class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
                 <button class="btn btn-success my-2 my-sm-0 navbutton" v-on:click="onPlay" :disabled="!paused">Play</button>
@@ -61,38 +61,36 @@
         </nav>
 
         <!-- startup alert -->
-        <div id="welcome" class="alert alert-secondary show" role="alert">
-          <h2>Welcome to Drummer</h2>
+        <div id="welcome" class="jumbotron show">
           <div class="container">
             <div class="row">
-                <div class="col">
-                  <img src="img/cr78.png" class="image-responsive" />
-                </div>
-                <div class="col">
-                  <h3>Welcome to Drummer</h3>
-                  <p>
-                    Drummer is a drum machine app. It uses samples of the classic CR78 but is 
-                    programmed by simply clicking events onto a repeating timeline.
-                  </p>
-                  <p>
-                    It is built with the <a href="https://howlerjs.com/">Howler JavaScript audio library</a> and brought to life with
-                    <a href="https://vuejs.org/">Vue.js</a> and <a href="http://getbootstrap.com/">Bootstap 4</a>. It uses <a href="https://pouchdb.com/">PouchDB</a> to store your loops in a local database
-                    in your web browser, but you can also sync this collection to a remote <a href="http://couchdb.apache.org/">CouchDB</a>
-                    or <a href="https://www.ibm.com/analytics/us/en/technology/cloud-data-services/cloudant/">Cloudant</a> database for safe-keeping.
-                  </p>
-                  <p>
-                    Have fun! This is an open-source project and the <a href="https://github.com/ibm-watson-data-lab/drummer">code can be found here</a>.
-                  </p>
-                  <p>
-                    <button v-on:click="onGetStarted" class="btn btn-primary btn-lg">Start</button>
-                </div>
+              <div class="col">
+                <img src="img/cr78.png" class="image-responsive" />
               </div>
+              <div class="col">
+                <h3>Welcome to Drummer</h3>
+                <p>
+                  Drummer is a drum machine app. It uses samples of the classic CR78 but is 
+                  programmed by simply clicking events onto a repeating timeline.
+                </p>
+                <p>
+                  It is built with the <a href="https://howlerjs.com/">Howler JavaScript audio library</a> and brought to life with
+                  <a href="https://vuejs.org/">Vue.js</a> and <a href="http://getbootstrap.com/">Bootstap 4</a>. It uses <a href="https://pouchdb.com/">PouchDB</a> to store your loops in a local database
+                  in your web browser, but you can also sync this collection to a remote <a href="http://couchdb.apache.org/">CouchDB</a>
+                  or <a href="https://www.ibm.com/analytics/us/en/technology/cloud-data-services/cloudant/">Cloudant</a> database for safe-keeping.
+                </p>
+                <p>
+                  Have fun! This is an open-source project and the <a href="https://github.com/ibm-watson-data-lab/drummer">code can be found here</a>.
+                </p>
+                <p>
+                  <button v-on:click="onGetStarted" class="btn btn-primary btn-lg">Start</button>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- sequence editor -->
-        <a name="start"></a>
-        <div  class="container-fluid">
+        <div id="sequence" class="container-fluid hidden">
           <table class="table" >
             <tr>
               <th>Sound</th>
@@ -100,13 +98,13 @@
               <th>Mute</th>
             </tr>
             <tr v-for="seq,name in sequence">
-                <th>{{ name }}</th>
-                <td class="list-inline-item seqitem inactive" v-for="i,j in seq" v-bind:class="{ active: j == pos }">
-                  <input class="form-check-input" type="checkbox" v-model="seq[j]"> 
-                </td>
-                <th class="mute">
-                  <input class="form-check-input" type="checkbox" v-model="sounds[name].mute">
-                </th> 
+              <th>{{ name }}</th>
+              <td class="list-inline-item seqitem inactive" v-for="i,j in seq" v-bind:class="{ active: j == pos }">
+                <input class="form-check-input" type="checkbox" v-model="seq[j]"> 
+              </td>
+              <td class="mute">
+                <input class="form-check-input" type="checkbox" v-model="sounds[name].mute">
+              </td> 
             </tr>
           </table>
 
