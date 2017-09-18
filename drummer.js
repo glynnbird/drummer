@@ -146,7 +146,9 @@ var app = new Vue({
 
     // on click of the 'get started' button
     onGetStarted : function() {
-      $('#startupModal').modal('hide')
+      $('#startupModal').modal('hide');
+      $('#welcome').hide();
+      this.start();
     }
   },
 
@@ -182,7 +184,7 @@ var app = new Vue({
       this.sequence.kicka[x] = true;
     }
     this.getFileList();
-    this.start();
+
     $('#startupModal').modal('show')
   }
 })

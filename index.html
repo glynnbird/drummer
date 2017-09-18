@@ -61,7 +61,7 @@
         </nav>
 
         <!-- startup alert -->
-        <div class="alert alert-secondary show" role="alert">
+        <div id="welcome" class="alert alert-secondary show" role="alert">
           <h2>Welcome to Drummer</h2>
           <div class="container">
             <div class="row">
@@ -84,7 +84,7 @@
                     Have fun! This is an open-source project and the <a href="https://github.com/ibm-watson-data-lab/drummer">code can be found here</a>.
                   </p>
                   <p>
-                    <a href="#start" class="btn btn-primary btn-lg">Start</a>
+                    <button v-on:click="onGetStarted" class="btn btn-primary btn-lg">Start</button>
                 </div>
               </div>
           </div>
