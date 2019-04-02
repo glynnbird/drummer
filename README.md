@@ -4,6 +4,8 @@ An offline first demo that allows drum sequences to be composed and saved in a w
 
 ![cr78](img/cr78.png)
 
+[LIVE DEMO](https://glynnbird.github.io/drummer/)
+
 The drum sounds are based on the class CR78 drum machine but are programmed using HTML check box
 controls on a time line.
 
