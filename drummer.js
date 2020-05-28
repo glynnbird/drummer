@@ -182,7 +182,8 @@ var app = new Vue({
           sequenceLength: this.sequenceLength,
           sequence: this.sequence,
           bpm: this.bpm,
-          name: this.name
+          name: this.name,
+          swing: this.swing
         };
         db.get(obj._id).then((data) => {
           obj._rev = data._rev;
@@ -202,6 +203,7 @@ var app = new Vue({
         this.sequenceLength = data.sequenceLength,
         this.sequence = data.sequence,
         this.bpm = data.bpm;
+        this.swing = data.swing;
         this.stop();
         this.start();
         $('#loadModal').modal('hide')
