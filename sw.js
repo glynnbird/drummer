@@ -26,7 +26,7 @@ self.addEventListener('install', function(e) {
         'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css',
         'https://code.jquery.com/jquery-2.2.4.js',
         'https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.4/howler.min.js',
-        'https://unpkg.com/vue@2.4.2',
+        'https://cdn.jsdelivr.net/npm/vue',
         'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js',
         'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js',
         'https://cdn.jsdelivr.net/npm/pouchdb@7.1.1/dist/pouchdb.min.js',
