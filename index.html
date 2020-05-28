@@ -36,6 +36,15 @@
                   <button class="btn btn-outline-secondary my-2 my-sm-0 navbutton" v-on:click="onBpm">BPM</button>
               </li>
               <li class="nav-item">
+                &nbsp;&nbsp;&nbsp;
+              </li>
+              <li class="nav-item">
+                <input id="bpmcontrol" class="form-control" type="number" min="1" max="6" v-model="swing" >
+              </li>
+              <li class="nav-item">
+                <button class="btn btn-outline-secondary my-2 my-sm-0 navbutton" v-on:click="onSwing">Swing</button>
+              </li>
+              <li class="nav-item">
                   &nbsp;&nbsp;&nbsp;
               </li>
               <li class="nav-item">
@@ -142,8 +151,8 @@
     <script src="https://unpkg.com/vue@2.4.2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/pouchdb/pouchdb@6.3.4/dist/pouchdb.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/pouchdb/pouchdb@6.3.4/dist/pouchdb.find.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pouchdb@7.1.1/dist/pouchdb.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pouchdb@7.1.1/dist/pouchdb.find.min.js"></script>
     <script src="drummer.js"></script>
     <script>
       if('serviceWorker' in navigator) {
