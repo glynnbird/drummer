@@ -50,7 +50,6 @@ function newSetInterval(fn, duration){
     } else {
       d = duration * (percent/100)
     }
-    console.log(this.odd, swing, percent, d)
 
     this.baseline += d
  
