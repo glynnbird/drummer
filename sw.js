@@ -29,7 +29,8 @@ self.addEventListener('install', function(e) {
         'https://unpkg.com/vue@2.4.2',
         'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js',
         'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js',
-        'https://cdn.jsdelivr.net/gh/pouchdb/pouchdb@6.3.4/dist/pouchdb.find.min.js'
+        'https://cdn.jsdelivr.net/npm/pouchdb@7.1.1/dist/pouchdb.min.js',
+        'https://cdn.jsdelivr.net/npm/pouchdb@7.1.1/dist/pouchdb.find.min.js'
       ]);
     })
   );
