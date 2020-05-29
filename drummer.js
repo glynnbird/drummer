@@ -15,7 +15,6 @@ var db = new PouchDB('drummer');
 // setInterval replacement
 function newSetInterval(fn, duration){
   this.baseline = undefined
-  this.odd = false
   
   this.run = function() {
     if (this.baseline === undefined){
@@ -27,7 +26,8 @@ function newSetInterval(fn, duration){
     duration = 60000 / (app.bpm*2);
 
     // is this an on or off beat
-    this.odd = !this.odd
+    const odd = ((app.pos % 2) !== 0)
+    console.log(app.pos, odd)
 
     // swing algorithm
     const swing = app.swing
@@ -45,7 +45,7 @@ function newSetInterval(fn, duration){
     }
     percent = 50 + (percent - 50) / 4
     const end = new Date().getTime()
-    if (!this.odd) {
+    if (!odd) {
       d = duration * ((100 - percent)/100)
     } else {
       d = duration * (percent/100)
