@@ -4,6 +4,8 @@ An demo that allows drum sequences to be composed and saved in a web interface.
 
 ![cr78](img/cr78.png)
 
+![r8](img/r8.png)
+
 [LIVE DEMO](https://glynnbird.github.io/drummer/)
 
 The drum sounds are based on the Roland CR78 & R8 drum machines but are programmed using HTML check box
