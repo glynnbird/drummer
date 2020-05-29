@@ -80,12 +80,13 @@
           <div class="container">
             <div class="row">
               <div class="col">
-                <img src="img/cr78.png" class="image-responsive" />
+                <img src="img/cr78.png" class="image-responsive" /><br />
+                <img src="img/r8.png" class="image-responsive" />
               </div>
               <div class="col">
                 <h3>Welcome to Drummer</h3>
                 <p>
-                  Drummer is a drum machine app. It uses samples of the classic CR78 but is 
+                  Drummer is a drum machine app. It uses samples of the classic Roland CR78 & R8 drum machines but is 
                   programmed by simply clicking events onto a repeating timeline.
                 </p>
                 <p>
@@ -98,7 +99,11 @@
                   Have fun! This is an open-source project and the <a href="https://github.com/ibm-watson-data-lab/drummer">code can be found here</a>.
                 </p>
                 <p>
-                  <button v-on:click="onGetStarted" class="btn btn-primary btn-lg">Start</button>
+                  <button v-on:click="drummachine='cr78'; onGetStarted()" class="btn btn-primary btn-lg">Start with CR-78</button>
+                </p>
+                <p>
+                  <button v-on:click="drummachine='r8'; onGetStarted()" class="btn btn-primary btn-lg">Start with R-8</button>
+                </p>
               </div>
             </div>
           </div>
@@ -161,9 +166,9 @@
     <script src="https://cdn.jsdelivr.net/npm/pouchdb@7.1.1/dist/pouchdb.find.min.js"></script>
     <script src="drummer.js"></script>
     <script>
-      if('serviceWorker' in navigator) {
+     /* if('serviceWorker' in navigator) {
         navigator.serviceWorker.register('sw.js').then(function() { console.log("Service Worker Registered"); });
-      }
+      }*/
     </script>
   </body>
 </html>
