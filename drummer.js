@@ -27,7 +27,6 @@ function newSetInterval(fn, duration){
 
     // is this an on or off beat
     const odd = ((app.pos % 2) !== 0)
-    console.log(app.pos, odd)
 
     // swing algorithm
     const swing = app.swing
