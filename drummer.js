@@ -83,7 +83,8 @@ var app = new Vue({
     swing: 1,
     name: '',
     files: [ ],
-    mode: 'splash'
+    mode: 'splash',
+    drummachine: 'r8'
   },
   methods: {
     // start the sequence playback
@@ -210,10 +211,32 @@ var app = new Vue({
       });
     },
 
+    loadSounds: function() {
+      // load the sounds
+      this.sounds = {
+        kicka: { mute: false, sound: new Howl({ src: ['samples/' + this.drummachine + '-Kick.wav']})},
+        kickb: { mute: false, sound:new Howl({ src: ['samples/' + this.drummachine + '-Kick Accent.wav']})},
+        snarea: { mute: false, sound:new Howl({ src: ['samples/' + this.drummachine + '-Snare.wav']})},
+        snareb: { mute: false, sound:new Howl({ src: ['samples/' + this.drummachine + '-Snare Accent.wav']})},
+        rim: { mute: false, sound:new Howl({ src: ['samples/' + this.drummachine + '-Rim Shot.wav']})},
+        hihata: { mute: false, sound:new Howl({ src: ['samples/' + this.drummachine + '-HiHat.wav']})},
+        hihatb: { mute: false, sound:new Howl({ src: ['samples/' + this.drummachine + '-HiHat Accent.wav']})},
+        hihatc: { mute: false, sound:new Howl({ src: ['samples/' + this.drummachine + '-HiHat Metal.wav']})},
+        cymbal: { mute: false, sound:new Howl({ src: ['samples/' + this.drummachine + '-Cymbal.wav']})},
+        bongohigh: { mute: false, sound:new Howl({ src: ['samples/' + this.drummachine + '-Bongo High.wav']})},
+        bongolow: { mute: false, sound:new Howl({ src: ['samples/' + this.drummachine + '-Bongo Low.wav']})},
+        congalow: { mute: false, sound:new Howl({ src: ['samples/' + this.drummachine + '-Conga Low.wav']})},
+        cowbell: { mute: false, sound:new Howl({ src: ['samples/' + this.drummachine + '-Cowbell.wav']})},
+        tamb1: { mute: false, sound:new Howl({ src: ['samples/' + this.drummachine + '-Tamb 1.wav']})},
+        tamb2: { mute: false, sound:new Howl({ src: ['samples/' + this.drummachine + '-Tamb 2.wav']})}
+      };
+    },
     // on click of the 'get started' button
     onGetStarted : function() {
       $('#welcome').hide();
       $('#sequence').show();
+      // load the sounds
+      this.loadSounds()
       this.start();
       this.mode='play';
     },
@@ -229,24 +252,7 @@ var app = new Vue({
   // app start up event
   created: function() {
 
-    // load the sounds
-    this.sounds = {
-      kicka: { mute: false, sound: new Howl({ src: ['samples/Kick.wav']})},
-      kickb: { mute: false, sound:new Howl({ src: ['samples/Kick Accent.wav']})},
-      snarea: { mute: false, sound:new Howl({ src: ['samples/Snare.wav']})},
-      snareb: { mute: false, sound:new Howl({ src: ['samples/Snare Accent.wav']})},
-      rim: { mute: false, sound:new Howl({ src: ['samples/Rim Shot.wav']})},
-      hihata: { mute: false, sound:new Howl({ src: ['samples/HiHat.wav']})},
-      hihatb: { mute: false, sound:new Howl({ src: ['samples/HiHat Accent.wav']})},
-      hihatc: { mute: false, sound:new Howl({ src: ['samples/HiHat Metal.wav']})},
-      cymbal: { mute: false, sound:new Howl({ src: ['samples/Cymbal.wav']})},
-      bongohigh: { mute: false, sound:new Howl({ src: ['samples/Bongo High.wav']})},
-      bongolow: { mute: false, sound:new Howl({ src: ['samples/Bongo Low.wav']})},
-      congalow: { mute: false, sound:new Howl({ src: ['samples/Conga Low.wav']})},
-      cowbell: { mute: false, sound:new Howl({ src: ['samples/Cowbell.wav']})},
-      tamb1: { mute: false, sound:new Howl({ src: ['samples/Tamb 1.wav']})},
-      tamb2: { mute: false, sound:new Howl({ src: ['samples/Tamb 2.wav']})}
-    };
+    this.loadSounds()
 
     // clear the sequence
     for (var i in this.sounds) {
