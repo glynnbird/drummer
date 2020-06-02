@@ -6,11 +6,13 @@ An demo that allows drum sequences to be composed and saved in a web interface.
 
 ![r8](img/r8.png)
 
-![r8](img/screencap.png)
+![tempest](img/tempest.png)
+
+![screencap](img/screencap.png)
 
 [LIVE DEMO](https://glynnbird.github.io/drummer/)
 
-The drum sounds are based on the Roland CR78 & R8 drum machines but are programmed using HTML check box
+The drum sounds are based on the Roland CR78, R8 & Tempest drum machines but are programmed using HTML check box
 controls on a time line.
 
 The drum patterns can be saved and retrieved in an in-browser database [PouchDB](https://pouchdb.com)

@@ -81,12 +81,13 @@
             <div class="row">
               <div class="col">
                 <img src="img/cr78.png" class="image-responsive" /><br />
-                <img src="img/r8.png" class="image-responsive" />
+                <img src="img/r8.png" class="image-responsive" /><br />
+                <img src="img/tempest.png" class="image-responsive" />
               </div>
               <div class="col">
                 <h3>Welcome to Drummer</h3>
                 <p>
-                  Drummer is a drum machine app. It uses samples of the classic Roland CR78 & R8 drum machines but is 
+                  Drummer is a drum machine app. It uses samples of the classic Roland CR78, R8 and Tempest drum machines but is 
                   programmed by simply clicking events onto a repeating timeline.
                 </p>
                 <p>
@@ -97,6 +98,9 @@
                 </p>
                 <p>
                   <button v-on:click="drummachine='r8'; onGetStarted()" class="btn btn-primary btn-lg">Start with R-8</button>
+                </p>
+                <p>
+                  <button v-on:click="drummachine='tempest'; onGetStarted()" class="btn btn-primary btn-lg">Start with Tempest</button>
                 </p>
               </div>
             </div>
