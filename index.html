@@ -76,7 +76,7 @@
         </nav>
 
         <!-- startup alert -->
-        <div id="welcome" class="jumbotron show">
+        <div id="welcome" class="jumbotron show" v-show="mode==='splash'">
           <div class="container">
             <div class="row">
               <div class="col">
@@ -108,7 +108,7 @@
         </div>
 
         <!-- sequence editor -->
-        <div id="sequence" class="container-fluid hidden">
+        <div id="sequence" class="container-fluid" v-show="mode==='play'">
           <table class="table" >
             <tr>
               <th>Sound</th>
@@ -155,7 +155,6 @@
 
     </div>
 
-    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.4/howler.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>

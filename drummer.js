@@ -232,8 +232,8 @@ var app = new Vue({
     },
     // on click of the 'get started' button
     onGetStarted : function() {
-      $('#welcome').hide();
-      $('#sequence').show();
+      // $('#welcome').hide();
+      // $('#sequence').show();
       // load the sounds
       this.loadSounds()
       this.start();
@@ -242,8 +242,8 @@ var app = new Vue({
 
     onClickHome: function() {
       this.stop();
-      $('#welcome').show();
-      $('#sequence').hide();  
+      // $('#welcome').show();
+      // $('#sequence').hide();  
       this.mode='splash'
     }
   },
@@ -266,7 +266,8 @@ var app = new Vue({
       this.sequence.hihata[x] = true;
     }
     this.getFileList();
+    this.mode='splash'
 
-    $('#startupModal').modal('show')
+    // $('#startupModal').modal('show')
   }
 })
