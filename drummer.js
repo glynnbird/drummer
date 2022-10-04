@@ -9,8 +9,6 @@ var emptyArray = function() {
   return arr;
 };
 
-// setup the database
-var db = new PouchDB('drummer');
 
 // setInterval replacement
 function newSetInterval(fn, duration){
@@ -70,6 +68,7 @@ function newSetInterval(fn, duration){
 
 var app = new Vue({
   el: '#app',
+  vuetify: new Vuetify(),
   data: {
     sequenceLength: SEQUENCE_LENGTH,
     sequence: {
@@ -122,18 +121,6 @@ var app = new Vue({
       }
     },
 
-    // retrieve a list of documents from the database
-    getFileList: function() {
-      this.files = [];
-      db.find({ selector: {}, fields: ['_id']}).then((data) => {
-        if (data && data.docs) {
-          for(var i in data.docs) {
-            this.files.push(data.docs[i]._id);
-          }
-        }
-      });
-    },
-
     // on click of the play button
     onPlay : function() {
       this.start();
@@ -149,65 +136,6 @@ var app = new Vue({
       for (var i in this.sounds) {
         Vue.set(this.sequence, i, emptyArray());
       }
-    },
-
-    // on click of the bpm button
-    onBpm: function() {
-      this.stop();
-      this.start();
-    },
-
-    // on click of the swing button
-    onSwing: function() {
-      this.stop();
-      this.start();
-    },
-
-    // on click of the sequence length buttons
-    onSeqLen: function() {
-      this.stop();
-      this.start();
-    },
-
-    // on click of the load button
-    onLoad: function() {
-      $('#loadModal').modal('show')
-    },
-
-    // on click of the save button
-    onSave: function() {
-      if (this.name) {
-        var obj = {
-          _id: this.name,
-          sequenceLength: this.sequenceLength,
-          sequence: this.sequence,
-          bpm: this.bpm,
-          name: this.name,
-          swing: this.swing
-        };
-        db.get(obj._id).then((data) => {
-          obj._rev = data._rev;
-          return db.put(obj);
-        }).catch(() => {
-          return db.put(obj);
-        }).then(() => {
-          this.getFileList();
-        });
-      }
-    },
-
-    // when the user chooses to load a sequence from the database
-    onModalLoad: function() {
-      db.get(this.name).then((data) => {
-        this.name = data.name;
-        this.sequenceLength = data.sequenceLength,
-        this.sequence = data.sequence,
-        this.bpm = data.bpm;
-        this.swing = data.swing;
-        this.stop();
-        this.start();
-        $('#loadModal').modal('hide')
-      });
     },
 
     loadSounds: function() {
@@ -232,8 +160,6 @@ var app = new Vue({
     },
     // on click of the 'get started' button
     onGetStarted : function() {
-      // $('#welcome').hide();
-      // $('#sequence').show();
       // load the sounds
       this.loadSounds()
       this.start();
@@ -242,8 +168,6 @@ var app = new Vue({
 
     onClickHome: function() {
       this.stop();
-      // $('#welcome').show();
-      // $('#sequence').hide();  
       this.mode='splash'
     }
   },
@@ -267,7 +191,5 @@ var app = new Vue({
     }
     this.getFileList();
     this.mode='splash'
-
-    // $('#startupModal').modal('show')
   }
 })

@@ -1,171 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Drummer</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#666666">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">  
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="drummer.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
-  </head>
-  <body>
-    <div id="app" v-cloak>
-      
-      <!-- nav -->
-      <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-          <a class="navbar-brand" href="#" v-on:click="onClickHome">Drummer</a>
-        
-          <div v-if="mode=='play'" class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <button class="btn btn-success my-2 my-sm-0 navbutton" v-on:click="onPlay" :disabled="!paused">Play</button>
-              </li>
-              <li class="nav-item">
-                <button class="btn btn-danger my-2 my-sm-0 navbutton" v-on:click="onStop" :disabled="paused">Stop</button>
-              </li>
-              <li class="nav-item">
-                  &nbsp;&nbsp;&nbsp;
-              </li>
-              <li class="nav-item">
-                  <button class="btn btn-outline-secondary my-2 my-sm-0 navbutton" v-on:click="onClear">Clear</button>
-              </li>
-              <li class="nav-item">
-                   <input id="bpmcontrol" class="form-control" type="number" min="20" max="200" v-model="bpm" >
-              </li>
-              <li class="nav-item">
-                  <button class="btn btn-outline-secondary my-2 my-sm-0 navbutton" v-on:click="onBpm">BPM</button>
-              </li>
-              <li class="nav-item">
-                &nbsp;&nbsp;&nbsp;
-              </li>
-              <li class="nav-item">
-                <input id="bpmcontrol" class="form-control" type="number" min="1" max="6" v-model="swing" >
-              </li>
-              <li class="nav-item">
-                <button class="btn btn-outline-secondary my-2 my-sm-0 navbutton" v-on:click="onSwing">Swing</button>
-              </li>
-              <li class="nav-item">
-                  &nbsp;&nbsp;&nbsp;
-              </li>
-              <li class="nav-item">
-                  <input id="seqcontrol" class="form-control" type="number" min="3" max="32" v-model="sequenceLength" >
-             </li>
-              <li class="nav-item">
-                  <button class="btn btn-outline-secondary my-2 my-sm-0 navbutton" v-on:click="onSeqLen">Notes</button>
-              </li>
-              <li class="nav-item">
-                  &nbsp;&nbsp;&nbsp;
-              </li>
-              <li class="nav-item">
-                  <button class="btn btn-outline-warning my-2 my-sm-0 navbutton" v-on:click="onLoad">Load</button>
-              </li>
-              <li class="nav-item">
-                  <input id="name" class="form-control" type="string" v-model="name" >
-             </li>
-              <li class="nav-item">
-                  <button class="btn btn-outline-success my-2 my-sm-0 navbutton" v-on:click="onSave" :disabled="name.length==0">Save</button>
-              </li>
-            </ul>
-          </div>
-        </nav>
+<head>
+  <title>Drummer</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#666666">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="drummer.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+  <div id="app" v-cloak>
+    <v-app>
+      <v-main>
+        <v-app-bar dense dark>
+          <v-toolbar-title @click="onClickHome">Drummer</v-toolbar-title>
+        </v-app-bar>
+        <v-container>
 
-        <!-- startup alert -->
-        <div id="welcome" class="jumbotron show" v-show="mode==='splash'">
-          <div class="container">
-            <div class="row">
-              <div class="col">
-                <img src="img/cr78.png" class="image-responsive" /><br />
-                <img src="img/r8.png" class="image-responsive" /><br />
-                <img src="img/tempest.png" class="image-responsive" />
-              </div>
-              <div class="col">
+          <!-- controls -->
+          <v-row v-if="mode==='play'">
+            <v-col>
+              <v-button-group>
+                <v-btn @click="onPlay" color="success" small :disabled="!paused">
+                  <v-icon>mdi-play</v-icon>
+                </v-btn>
+                <v-btn @click="onStop" color="error" small :disabled="paused">
+                  <v-icon>mdi-stop</v-icon>
+                </v-btn>
+                <v-btn @click="onClear" small>
+                  <v-icon>mdi-eraser</v-icon>
+                </v-btn>
+              </v-button-group>
+            </v-col>
+            <v-col>
+              <v-text-field label="BPM" type="number" min="20" max="200" v-model="bpm"></v-text-field>
+            </v-col>
+            <v-col>
+              <v-text-field label="Swing" type="number" min="1" max="6" v-model="swing"></v-text-field>
+            </v-col>
+            <v-col>
+              <v-text-field label="Length" type="number" min="3" max="32" v-model="sequenceLength"></v-text-field>
+            </v-col>
+          </v-row>
+
+          <!-- welcome-->
+          <div v-if="mode==='splash'">
+            <v-row>
+              <v-col>
+                <v-row>
+                  <v-img max-width="400" src="img/cr78.png" />
+                </v-row>
+                <v-row>
+                  <v-img max-width="400" src="img/r8.png" />
+                </v-row>
+                <v-row>
+                  <v-img max-width="400" src="img/tempest.png" />
+                </v-row>
+              </v-col>
+              <v-col>
                 <h3>Welcome to Drummer</h3>
                 <p>
-                  Drummer is a drum machine app. It uses samples of the classic Roland CR78, R8 and Tempest drum machines but is 
+                  Drummer is a drum machine app. It uses samples of the classic Roland CR78, R8 and Tempest drum
+                  machines but is
                   programmed by simply clicking events onto a repeating timeline.
                 </p>
                 <p>
-                  Have fun! This is an open-source project and the <a href="https://github.com/ibm-watson-data-lab/drummer">code can be found here</a>.
+                  Have fun! This is an open-source project and the <a
+                    href="https://github.com/ibm-watson-data-lab/drummer">code can be found here</a>.
                 </p>
                 <p>
-                  <button v-on:click="drummachine='cr78'; onGetStarted()" class="btn btn-primary btn-lg">Start with CR-78</button>
+                  <v-btn @click="drummachine='cr78'; onGetStarted()" class="btn btn-primary btn-lg">Start with CR-78
+                  </v-btn>
                 </p>
                 <p>
-                  <button v-on:click="drummachine='r8'; onGetStarted()" class="btn btn-primary btn-lg">Start with R-8</button>
+                  <v-btn @click="drummachine='r8'; onGetStarted()" class="btn btn-primary btn-lg">Start with R-8</v-btn>
                 </p>
                 <p>
-                  <button v-on:click="drummachine='tempest'; onGetStarted()" class="btn btn-primary btn-lg">Start with Tempest</button>
+                  <v-btn @click="drummachine='tempest'; onGetStarted()" class="btn btn-primary btn-lg">Start with
+                    Tempest</v-btn>
                 </p>
-              </div>
-            </div>
+              </v-col>
+            </v-row>
           </div>
-        </div>
 
-        <!-- sequence editor -->
-        <div id="sequence" class="container-fluid" v-show="mode==='play'">
-          <table class="table" >
-            <tr>
-              <th>Sound</th>
-              <th colspan="sequenceLengyth"></th>
-              <th>Mute</th>
-            </tr>
-            <tr v-for="seq,name in sequence">
-              <th>{{ name }}</th>
-              <td class="list-inline-item seqitem inactive" v-for="i,j in seq" v-bind:class="{ active: j == pos }">
-                <input class="form-check-input" type="checkbox" v-model="seq[j]"> 
-              </td>
-              <td class="mute">
-                <input class="form-check-input" type="checkbox" v-model="sounds[name].mute">
-              </td> 
-            </tr>
-          </table>
-
-        </div>
-
-        <!-- load modal -->
-        <div id="loadModal" class="modal">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Load</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p>Select file to load</p>
-                <select v-model="name">
-                  <option value="">-----</option>
-                  <option v-for="f in files">{{ f }}</option>
-                </select>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary" v-on:click="onModalLoad">Load</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-            </div>
+          <!-- editor-->
+          <div id="sequence" class="container-fluid" v-show="mode==='play'">
+            <table class="table">
+              <tr>
+                <th>Sound</th>
+                <th colspan="32"></th>
+                <th>Mute</th>
+              </tr>
+              <tr v-for="seq,name in sequence">
+                <th>{{ name }}</th>
+                <td v-for="i,j in seq" class="inactive" :class="{ active: j == pos }">
+                  <v-checkbox class="form-check-input" type="checkbox" v-model="seq[j]" v-show="j < sequenceLength">
+                    <v-checkbox>
+                </td>
+                <td>
+                  <v-checkbox class="form-check-input" type="checkbox" v-model="sounds[name].mute"></v-checkbox>
+                </td>
+              </tr>
+            </table>
           </div>
-        </div> <!-- end load modal -->
+        </v-container>
+      </v-main>
+    </v-app>
+  </div>
 
-    </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.4/howler.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script src="drummer.js"></script>
+</body>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.4/howler.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/pouchdb@7.3.0/dist/pouchdb.min.js"></script>
-    <script src="https:/cdn.jsdelivr.net/npm/pouchdb@7.3.0/dist/pouchdb.find.min.js"></script>
-    <script src="drummer.js"></script>
-    <script>
-     /* if('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js').then(function() { console.log("Service Worker Registered"); });
-      }*/
-    </script>
-  </body>
 </html>
