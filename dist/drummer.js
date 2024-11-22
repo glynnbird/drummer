@@ -1,4 +1,4 @@
-const SEQUENCE_LENGTH = 32;
+const SEQUENCE_LENGTH = 16;
 
 // create an empty sequence
 var emptyArray = function() {
