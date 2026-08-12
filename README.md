@@ -2,13 +2,13 @@
 
 An demo that allows drum sequences to be composed and saved in a web interface.
 
-![cr78](img/cr78.png)
+![cr78](dist/img/cr78.png)
 
-![r8](img/r8.png)
+![r8](dist/img/r8.png)
 
-![tempest](img/tempest.png)
+![tempest](dist/img/tempest.png)
 
-![screencap](img/screencap.png)
+![screencap](dist/img/screencap.png)
 
 [LIVE DEMO](https://drummer.glynnbird.com/)
 
